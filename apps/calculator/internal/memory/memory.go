@@ -1,6 +1,7 @@
 package memory
 
 import (
+	"fmt"
 	"github.com/harshabangi/LLD/apps/calculator/pkg"
 	"time"
 )
@@ -44,8 +45,14 @@ func (m *memoryStore) ListCalculationRecords() []CalculationRecord {
 
 func (m *memoryStore) AddCalculation(record CalculationRecord) {
 	m.calculationsHistory = append(m.calculationsHistory, record)
+
 	if record.Name != "" {
-		m.calculationsMap[record.Name] = record
+		if _, ok := m.calculationsMap[record.Name]; ok {
+			// for now, we will just panic, instead of returning error
+			panic(fmt.Errorf("record with name '%s' already exists", record.Name))
+		} else {
+			m.calculationsMap[record.Name] = record
+		}
 	}
 }
 
