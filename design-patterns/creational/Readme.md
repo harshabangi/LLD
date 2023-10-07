@@ -1,0 +1,1 @@
+A creational design pattern is a category of design patterns in software engineering that focuses on the process of object creation
